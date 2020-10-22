@@ -11,25 +11,19 @@ type Registry struct {
 	Nameservers []string `json:"nameservers,omitempty"`
 }
 
-func checkTLD(domain string, nameserver string) (*Registry, []string, error) {
+func checkTLD(domain string, nameserver string) (*Registry, error) {
 	reg := new(Registry)
-	var findings []string
 
 	// TLD and Registry information
 	tld, tldicann := publicsuffix.PublicSuffix(domain)
 	reg.TLD = tld
 	reg.MemberICANN = tldicann
 
-	if tldicann == false {
-		finding := "The TLD " + tld + " is not an ICANN member."
-		findings = append(findings, finding)
-	}
-
 	ns, err := resolveNS(tld, nameserver)
 	if err != nil {
-		return reg, findings, err
+		return reg, err
 	}
 	reg.Nameservers = ns
 
-	return reg, findings, nil
+	return reg, nil
 }

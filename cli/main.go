@@ -9,7 +9,9 @@ import (
 )
 
 func main() {
-	domain := "sidn.nl"
+	// domain := "networking4all.asia" NSEC
+	domain := "findio.nl"
+
 	nameserver := "8.8.8.8"
 
 	check, err := dnschecks.Run(domain, nameserver)

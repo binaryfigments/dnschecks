@@ -7,9 +7,8 @@ type Chaos struct {
 	BindVersion  string `json:"version,omitempty"`
 }
 
-func checkChaos(domain string, nameserver string, nameservers []string) ([]*Chaos, []string, error) {
+func checkChaos(domain string, nameserver string, nameservers []string) ([]*Chaos, error) {
 	data := []*Chaos{}
-	var findings []string
 
 	for _, ns := range nameservers {
 		chaos := new(Chaos)
@@ -29,5 +28,5 @@ func checkChaos(domain string, nameserver string, nameservers []string) ([]*Chao
 		data = append(data, chaos)
 	}
 
-	return data, findings, nil
+	return data, nil
 }
